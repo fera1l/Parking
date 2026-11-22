@@ -1,0 +1,39 @@
+plugins {
+    id 'application'
+}
+
+group = 'parking'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+// версия JavaFX, тащим виндовые сборки
+def javafxVersion = '21.0.5'
+
+dependencies {
+    implementation("org.openjfx:javafx-base:${javafxVersion}:win") { transitive = false }
+    implementation("org.openjfx:javafx-graphics:${javafxVersion}:win") { transitive = false }
+    implementation("org.openjfx:javafx-controls:${javafxVersion}:win") { transitive = false }
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    // запускаем через Launcher, чтобы javafx нормально стартовал с classpath
+    mainClass = 'parking.Launcher'
+}
